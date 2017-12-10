@@ -2,19 +2,19 @@ package main
 
 import (
 	"encoding/hex"
+	"errors"
 	"fmt"
 )
 
-func challenge2() {
+func challenge2() error {
 	fmt.Println("Running Challenge 2.")
 	string1 := "1c0111001f010100061a024b53535009181c"
 	string2 := "686974207468652062756c6c277320657965"
 	check := "746865206b696420646f6e277420706c6179"
 	fmt.Println("Check string: ", check)
-	xor, err := xorhex(string1, string2)
+	xor, err := xorHex(string1, string2)
 	if err != nil {
-		fmt.Println("Challenge 2 failed")
-		return
+		return err
 	}
 	out := hex.EncodeToString(xor)
 
@@ -23,7 +23,8 @@ func challenge2() {
 	if out == check {
 		fmt.Println("Challenge 2 Success!")
 	} else {
-		fmt.Println("Challenge 2 failed.")
+		return errors.New("Output does not match check value")
 	}
 
+	return nil
 }

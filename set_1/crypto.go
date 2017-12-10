@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"encoding/hex"
+	"fmt"
 )
 
 // Set 1 Functions
@@ -20,13 +21,15 @@ func hextob64(message string) (string, error) {
 
 // Challenge 2
 
-func xorhex(inputstr string, keystr string) ([]byte, error) {
+func xorHex(inputstr string, keystr string) ([]byte, error) {
 	input, err := hex.DecodeString(inputstr)
 	if err != nil {
+		fmt.Println("Failed to decode", inputstr)
 		return make([]byte, 0), err
 	}
 	key, err := hex.DecodeString(keystr)
 	if err != nil {
+		fmt.Println("Failed to decode", keystr)
 		return make([]byte, 0), err
 	}
 	out := make([]byte, len(input))
@@ -36,4 +39,31 @@ func xorhex(inputstr string, keystr string) ([]byte, error) {
 
 	return out, nil
 
+}
+
+//Challenge 3
+
+func xorSingleChar(inputstr string, key byte) ([]byte, error) {
+	input, err := hex.DecodeString(inputstr)
+	if err != nil {
+		fmt.Println("Failed to decode", inputstr)
+		return make([]byte, 0), err
+	}
+	out := make([]byte, len(input))
+	for i, v := range input {
+		out[i] = v ^ key
+	}
+
+	return out, nil
+}
+
+func countLowercase(inputstr string) (int, error) {
+	bytes := []byte(inputstr)
+	count := 0
+	for i := 0; i < len(bytes); i++ {
+		if bytes[i] >= 'a' && bytes[i] <= 'z' {
+			count++
+		}
+	}
+	return count, nil
 }
