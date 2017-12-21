@@ -67,3 +67,19 @@ func countLowercase(inputstr string) (int, error) {
 	}
 	return count, nil
 }
+
+// Challenge 5
+
+func xorRepeatingKey(inputString string, key []byte) ([]byte, error) {
+	inputBytes := []byte(inputString)
+
+    outputBytes := make([]byte, len(inputString))
+
+	for i, inputByte := range inputBytes {
+		xorIndex := i % 3
+		outputBytes[i] = inputByte ^ key[xorIndex]
+	}
+
+	return outputBytes, nil
+}
+
