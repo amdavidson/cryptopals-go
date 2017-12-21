@@ -1,10 +1,10 @@
-package cryptopals
+package main
 
 import (
 	"fmt"
 )
 
-func cryptopals() {
+func main() {
 	var err error
 	err = challenge1()
 	if err != nil {

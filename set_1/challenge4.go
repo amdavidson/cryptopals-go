@@ -1,4 +1,4 @@
-package cryptopals
+package main
 
 import (
 	"fmt"
@@ -17,23 +17,22 @@ func challenge4() error {
 	char := ""
 	out := ""
 
-	for j := 0; j < len(testCases); j++ {
-
-		for i := 0x00; i < 0xFF; i++ {
-			ijString, err := xorSingleChar(testCases[j], byte(i))
+    for _, testCase := range testCases {
+        for i := 0; i <= 255; i++ {
+			testString, err := xorSingleChar(testCase, byte(i))
 			if err != nil {
 				fmt.Println("XOR failed")
 				return err
 			}
-			ijScore, err := countLowercase(string(ijString))
+			testScore, err := countLowercase(string(testString))
 			if err != nil {
 				fmt.Println("Scoring failed")
 				return err
 			}
-			if score < ijScore {
-				score = ijScore
+			if score < testScore {
+				score = testScore
 				char = string(i)
-				out = string(ijString)
+				out = string(testString)
 			}
 		}
 	}
