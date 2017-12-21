@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
+    "errors"
 )
 
 // Set 1 Functions
@@ -73,7 +74,7 @@ func countLowercase(inputstr string) (int, error) {
 func xorRepeatingKey(inputString string, key []byte) ([]byte, error) {
 	inputBytes := []byte(inputString)
 
-    outputBytes := make([]byte, len(inputString))
+	outputBytes := make([]byte, len(inputString))
 
 	for i, inputByte := range inputBytes {
 		xorIndex := i % 3
@@ -83,3 +84,22 @@ func xorRepeatingKey(inputString string, key []byte) ([]byte, error) {
 	return outputBytes, nil
 }
 
+// Challenge 6
+
+func hammingDistance(string1 []byte, string2 []byte) (int, error) {
+	distance := 0
+
+    if len(string1) != len(string2) {
+        return 0, errors.New("String lengths are unmatched")
+    }
+
+	for i, val1 := range string1 {
+		if val1 == string2[i] {
+			continue
+		} else {
+			distance = distance + 1
+		}
+	}
+
+	return distance, nil
+}
