@@ -1,8 +1,10 @@
 package main
 
 import (
+	"crypto/aes"
 	"encoding/base64"
 	"encoding/hex"
+	"errors"
 	"fmt"
 )
 
@@ -73,7 +75,7 @@ func countLowercase(inputstr string) (int, error) {
 func xorRepeatingKey(inputString string, key []byte) ([]byte, error) {
 	inputBytes := []byte(inputString)
 
-    outputBytes := make([]byte, len(inputString))
+	outputBytes := make([]byte, len(inputString))
 
 	for i, inputByte := range inputBytes {
 		xorIndex := i % 3
@@ -83,3 +85,26 @@ func xorRepeatingKey(inputString string, key []byte) ([]byte, error) {
 	return outputBytes, nil
 }
 
+// Challenge 7
+
+func decryptECB(ct []byte, key []byte) ([]byte, error) {
+	pt := make([]byte, len(ct))
+
+	cipher, err := aes.NewCipher(key)
+	if err != nil {
+		fmt.Println("key could not be used to make a new cipher")
+		return nil, err
+	}
+
+	if len(ct)%len(key) != 0 {
+		return nil, errors.New("cipher text is not a multiple of the key length")
+	}
+
+	blocksize := len(key)
+
+	for blockstart, blockend := 0, blocksize; blockstart < len(ct); blockstart, blockend = blockstart+blocksize, blockend+blocksize {
+		cipher.Decrypt(pt[blockstart:blockend], ct[blockstart:blockend])
+	}
+
+	return pt, nil
+}

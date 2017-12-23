@@ -26,9 +26,14 @@ func main() {
 		fmt.Println("Challenge 4 failed.")
 		fmt.Println(err)
 	}
-    err = challenge5()
-    if err != nil {
-        fmt.Println("Challenge 5 failed.")
-        fmt.Println(err)
-    }
+	err = challenge5()
+	if err != nil {
+		fmt.Println("Challenge 5 failed.")
+		fmt.Println(err)
+	}
+	err = challenge7()
+	if err != nil {
+		fmt.Println("Challenge 7 failed.")
+		fmt.Println(err)
+	}
 }
