@@ -108,3 +108,16 @@ func decryptECB(ct []byte, key []byte) ([]byte, error) {
 
 	return pt, nil
 }
+
+// Challenge 8
+
+func chunk(data []byte, blocksize int) ([][]byte, error) {
+	out := make([][]byte, 0)
+
+	for i := 0; i < (len(data) / blocksize); i++ {
+		out = append(out, data[(i*blocksize):((i+1)*blocksize)])
+	}
+
+	return out, nil
+
+}

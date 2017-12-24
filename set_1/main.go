@@ -36,4 +36,9 @@ func main() {
 		fmt.Println("Challenge 7 failed.")
 		fmt.Println(err)
 	}
+	err = challenge8()
+	if err != nil {
+		fmt.Println("Challenge 8 failed.")
+		fmt.Println(err)
+	}
 }
