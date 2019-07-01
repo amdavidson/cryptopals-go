@@ -121,3 +121,23 @@ func chunk(data []byte, blocksize int) ([][]byte, error) {
 	return out, nil
 
 }
+
+
+// Challenge 9
+
+func pad(data []byte, padding byte, length int) []byte, error {
+	if len(data) >= length {
+		return []byte, errors.New("Padding input is longer than desired length")
+	}
+
+	for i := 0; i < (length - len(data)); i++ {
+		data = append(data, padding)
+	}
+
+	if len(data) != len(padding) {
+		return []byte, errors.New("Padding did not result in correct length")
+	}
+
+	return data, nil
+	
+}

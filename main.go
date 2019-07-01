@@ -41,4 +41,9 @@ func main() {
 		fmt.Println("Challenge 8 failed.")
 		fmt.Println(err)
 	}
+	err = challenge9()
+	if err != nil {
+		fmt.Println("Challenge 9 failed.")
+		fmt.Println(err)
+	}
 }
