@@ -1,17 +1,13 @@
-package main
+package cryptopals
 
 import (
 	"crypto/aes"
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
-	"fmt"
 )
 
-// Set 1 Functions
-
 // Challenge 1
-
 func hextob64(message string) (string, error) {
 	decoded, err := hex.DecodeString(message)
 	if err != nil {
@@ -21,17 +17,14 @@ func hextob64(message string) (string, error) {
 	return encoded, nil
 }
 
-// Challenge 2
-
+//Challenge 2
 func xorHex(inputstr string, keystr string) ([]byte, error) {
 	input, err := hex.DecodeString(inputstr)
 	if err != nil {
-		fmt.Println("Failed to decode", inputstr)
 		return make([]byte, 0), err
 	}
 	key, err := hex.DecodeString(keystr)
 	if err != nil {
-		fmt.Println("Failed to decode", keystr)
 		return make([]byte, 0), err
 	}
 	out := make([]byte, len(input))
@@ -43,13 +36,11 @@ func xorHex(inputstr string, keystr string) ([]byte, error) {
 
 }
 
-//Challenge 3
-
+//Challenge 4
 func xorSingleChar(inputstr string, key byte) ([]byte, error) {
 	input, err := hex.DecodeString(inputstr)
 	if err != nil {
-		fmt.Println("Failed to decode", inputstr)
-		return make([]byte, 0), err
+		return nil, err
 	}
 	out := make([]byte, len(input))
 	for i, v := range input {
@@ -59,6 +50,7 @@ func xorSingleChar(inputstr string, key byte) ([]byte, error) {
 	return out, nil
 }
 
+//Challenge 5
 func countLowercase(inputstr string) (int, error) {
 	bytes := []byte(inputstr)
 	count := 0
@@ -69,8 +61,6 @@ func countLowercase(inputstr string) (int, error) {
 	}
 	return count, nil
 }
-
-// Challenge 5
 
 func xorRepeatingKey(inputString string, key []byte) ([]byte, error) {
 	inputBytes := []byte(inputString)
@@ -86,13 +76,11 @@ func xorRepeatingKey(inputString string, key []byte) ([]byte, error) {
 }
 
 // Challenge 7
-
 func decryptECB(ct []byte, key []byte) ([]byte, error) {
 	pt := make([]byte, len(ct))
 
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
-		fmt.Println("key could not be used to make a new cipher")
 		return nil, err
 	}
 
@@ -110,7 +98,6 @@ func decryptECB(ct []byte, key []byte) ([]byte, error) {
 }
 
 // Challenge 8
-
 func chunk(data []byte, blocksize int) ([][]byte, error) {
 	out := make([][]byte, 0)
 
@@ -120,24 +107,4 @@ func chunk(data []byte, blocksize int) ([][]byte, error) {
 
 	return out, nil
 
-}
-
-
-// Challenge 9
-
-func pad(data []byte, padding byte, length int) []byte, error {
-	if len(data) >= length {
-		return []byte, errors.New("Padding input is longer than desired length")
-	}
-
-	for i := 0; i < (length - len(data)); i++ {
-		data = append(data, padding)
-	}
-
-	if len(data) != len(padding) {
-		return []byte, errors.New("Padding did not result in correct length")
-	}
-
-	return data, nil
-	
 }
